@@ -1,0 +1,29 @@
+site_name: Manual de Usuario Nexopus - Casos Automáticos Ivanti
+site_description: Manual de Usuario Nexopus - Casos Automáticos Ivanti
+site_url: https://andres-dev-nepxa.github.io/Nexopus-OG-Creacion-Automatica-Ivanti-docs/
+repo_url: https://github.com/nepxa-ai/Nexopus-OG-Creacion-Automatica-Ivanti-docs.git
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.instant
+    - search.suggest
+    - content.code.copy
+
+nav:
+  - Inicio: index.md
+  - Uso general:
+      - Inicio de sesión: 01_uso_general/login.md
+      - Navegación: 01_uso_general/navegacion.md
+      - Configuración de perfil: 01_uso_general/configuracion_perfil.md
+  - Módulos:
+      - Dashboard: 02_modulos/dashboard.md
+      - Incidencias: 02_modulos/incidencias.md
+      - Reportes: 02_modulos/reportes.md
+  - Administración:
+      - Gestión de usuarios: 03_admin/gestion_usuarios.md
+      - Roles y permisos: 03_admin/roles_permisos.md
+      - Parámetros del sistema: 03_admin/parametros_sistema.md
+  - Soporte:
+      - Preguntas frecuentes: soporte/preguntas_frecuentes.md
+      - Contacto: soporte/contacto.md
