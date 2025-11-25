@@ -12,6 +12,11 @@ Para ingresar a la plataforma Nexopus:
 1. Si olvidaste tu contraseña, usa la opción **¿Olvidó su contraseña?**. Verifica que el Email sea correcto y presiona **¿Olvidó su contraseña?**, el sistema remitirá un correo electrónico con un nueva contraseña que posteriormente deberás cambiar.
  ![ecuperación de contrsaeña](../assets/01_uso_general/recuperar_contrasena.png)
 
+
+
+!!! tip "Sugerencia"
+    Recuerda revisar tu correo asignado o contactar al administrador del sistema.
+
 ---
 
 ## **Errores comunes**

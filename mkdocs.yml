@@ -10,6 +10,15 @@ theme:
     - search.suggest
     - content.code.copy
 
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+
+plugins:
+  - search
+  - diagrams
+
 nav:
   - Inicio: index.md
   - Uso general:
