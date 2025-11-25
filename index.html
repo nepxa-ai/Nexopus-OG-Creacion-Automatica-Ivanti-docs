@@ -390,6 +390,33 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#descripcion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Descripción
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#objetivo-general" class="md-nav__link">
+    <span class="md-ellipsis">
+      Objetivo General
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#descripcion-funcional-de-la-arquitectura-y-flujo-de-trabajo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Descripción funcional de la Arquitectura y Flujo de Trabajo:
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -878,6 +905,33 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#descripcion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Descripción
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#objetivo-general" class="md-nav__link">
+    <span class="md-ellipsis">
+      Objetivo General
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#descripcion-funcional-de-la-arquitectura-y-flujo-de-trabajo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Descripción funcional de la Arquitectura y Flujo de Trabajo:
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -908,14 +962,53 @@
 <hr />
 <h2 id="estructura-del-manual">🧭 Estructura del Manual</h2>
 <ol>
-<li><strong>Uso general:</strong> conceptos básicos de navegación e inicio de sesión.  </li>
-<li><strong>Módulos:</strong> explicación de cada área funcional.  </li>
-<li><strong>Administración:</strong> gestión de usuarios, permisos y parámetros del sistema.  </li>
-<li><strong>Soporte:</strong> preguntas frecuentes y contacto con el equipo técnico.</li>
+<li><strong>Inicio:</strong> Esta sección se presenta una descripción general de proyecto, su objetivo general y sistema integrados.   </li>
+<li><strong>Uso general:</strong> Esta sección presenta los conceptos básicos para inicio de sesión y navegación sobre la plataforma.  </li>
+<li><strong>Módulos:</strong> Esta sección explicación de cada área funcional de la plataforma.  </li>
+<li><strong>Administración:</strong> Esta sección presenta la gestión de usuarios, parámetros del sistema y flujo funcional.  </li>
+<li><strong>Soporte:</strong> Aquí se presenta, preguntas frecuentes y tips para enfrentar posibles fallas, además de la forma de interactuar con el equipo técnico de soporte.</li>
 </ol>
 <hr />
-<p>!!! tip "Sugerencia"
-    Usa el cuadro de <strong>búsqueda</strong> (arriba a la derecha) para encontrar cualquier tema rápidamente.</p>
+<h2 id="descripcion">Descripción</h2>
+<p>Este proyecto implementa una solución integral para la creación automática y enriquecida de casos en el ITSM Ivanti. A través de la sinergia entre la inteligencia artificial de gestión de llamadas de Dialvox y las capacidades de procesamiento e inteligencia artificial de nuestra plataforma Nexopus, transformando las interacciones de voz de los usuarios clientes en tickets de servicio completos.</p>
+<h2 id="objetivo-general">Objetivo General</h2>
+<p>Automatizar el proceso de creación de tickets en la plataforma Ivanti a partir de las llamadas recibidas por el asistente de llamadas del sistema Dialvoxen al  Centro de Servicios (CdS) , asegurando la máxima calidad y completitud de la información registrada.</p>
+<h2 id="descripcion-funcional-de-la-arquitectura-y-flujo-de-trabajo">Descripción funcional de la Arquitectura y Flujo de Trabajo:</h2>
+<p><img alt="Diagarama funcional de integración" src="assets/diagrama_solucion_entidades-flujo.png" /></p>
+<p>El proyecto se basa en la integración de tres componentes principales:</p>
+<ol>
+<li>
+<p><strong>Dialvox (Sistema de Recepción de Llamadas con IA):</strong></p>
+<ul>
+<li>Actúa como el primer punto de contacto para el usuario.</li>
+<li>Utiliza un sistema de respuesta de voz interactiva (IVR) inteligente para comprender la intención inicial del usuario.</li>
+<li>Graba la conversación para su posterior análisis.</li>
+</ul>
+</li>
+<li>
+<p><strong>Nexopus (Plataforma de Orquestación e Inteligencia):</strong></p>
+<ul>
+<li>Recibe la grabación y/o la transcripción de la llamada desde Dialvox.</li>
+<li>Aplica algoritmos de Procesamiento del Lenguaje Natural (PLN) para analizar el contenido de la conversación.</li>
+<li>Su motor de IA se encarga de la extracción de entidades: Identifica y extrae información clave como nombre del solicitante, número de identificación, descripción del problema, activos involucrados, etc.</li>
+<li>Clasificación y Categorización: Por medio de su IA documenta los indicentes y requerimientos con un Servicio,  Categoría y Subcategoría.</li>
+</ul>
+</li>
+<li>
+<p><strong>Ivanti (Sistema de Gestión de Tickets - ITSM):</strong>
+A través de su API, recibe la información estructurada desde Nexopus.</p>
+<ul>
+<li>Se crea un nuevo caso de manera automática en la cola correspondiente del Centro de Servicios.
+El caso incluye:
+Título descriptivo.
+Datos del solicitante.
+Descripción detallada del problema (extraída de la conversación).
+Categorización sugeridos por la IA.</li>
+</ul>
+</li>
+</ol>
+<p>Resultado:</p>
+<p>La implementación de este proyecto permite la documnetación automática de tickets que son atendidos en llamada a un centro de Servivicio con una intervención manual mínima o nula. Esto permitirá a los gestores del CdS recibir casos mejor documentados, lo que a su vez acelerará el tiempo de diagnóstico y resolución.</p>
 
 
 

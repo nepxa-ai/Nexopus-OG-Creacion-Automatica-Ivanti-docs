@@ -1,0 +1,41 @@
+@startuml
+title Contexto general - Creación y documentación automática de casos en ITSM Ivanti con Nexopus
+
+actor "Usuario final\n(Cliente)" as Cliente
+actor "Gestor CdS\n(Agente de soporte)" as Gestor
+
+rectangle "Dialvox\n(IVR con IA de llamadas)" as Dialvox {
+}
+
+rectangle "Nexopus\n(Plataforma de Orquestación e IA)" as Nexopus {
+}
+
+rectangle "Ivanti ITSM\n(Sistema de Gestión de Tickets)" as Ivanti {
+}
+
+note left of Dialvox
+  Primer frente de atención
+  Información básicas de atención
+  Solicitudes: 
+           -Reporte de incidente 
+           -Requerimiento 
+           -Consulta de ticket
+           -Realizar FPQRS
+  Activación webhooks  Metadatos de llamada 
+  (webhook/API)
+end note
+
+note left of Nexopus
+  Orquestación de postprocesamiento Audio 
+  Transcripción
+  IA de categorización
+end note
+
+Cliente --> Dialvox
+Dialvox --> Nexopus
+Nexopus --> Ivanti : Payload estructurado\n(JSON - API REST)\nDatos del solicitante + categorización
+Nexopus --> Gestor : GUI de interacción
+Ivanti --> Gestor : Ticket creado en cola\nIncidente / Requerimiento / FPQRS
+Gestor --> Ivanti : Actualiza estado del caso\nDiagnóstico y resolución
+Cliente --> Gestor : Actualiza estado del caso\nDiagnóstico y resolución
+@enduml
