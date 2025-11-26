@@ -1,0 +1,80 @@
+@startuml
+title Flujo general de integración Nexopus + Oriana + Ivanti
+
+actor Usuario
+participant "Dialvox / Oriana" as Dialvox
+participant "Gestor CdS" as Gestor
+participant "Nexopus (Orquestador AI)" as Nexopus
+participant "Ivanti ITSM" as Ivanti
+
+
+' ==========================
+' ESTADO 1: Atendido por Oriana
+' ==========================
+group Atendido por Oriana
+Usuario -> Dialvox: Llamada entrante
+activate Dialvox
+Dialvox -> Dialvox: IVR + Bot Oriana\n Proceso Oriana \n Captura {phone}, datos iniciales, solicitud.
+Dialvox -> Ivanti: Crear FPQRS/Incidente/Requerimiento.
+Ivanti -> Dialvox: Ivanti devuelve {ticket}. 
+Dialvox -> Usuario: Respuesta de Oriana {ticket}
+
+
+Usuario --> Dialvox: ¿Pide atención con Gestor?
+activate Gestor
+Dialvox -> Gestor: Transferir llamada
+
+' Envío de evento a Nexopus
+Dialvox -> Nexopus: POST /webhooks/fin_llamada\n(id_llamada, phone, audio_url, vars...)
+deactivate Dialvox 
+
+activate Nexopus
+Nexopus -> Nexopus: Marcar estado = "Atendido por Oriana"
+end
+
+' ==============================
+' ESTADO 2: Atendido por Oriana y Gestor
+' ==============================
+alt Atendido por Oriana y Gestor
+loop Llamada entre Usuario y Gestor (Atención humana)
+Gestor -> Usuario: Gestor atiende con mayor \n detalle el caso
+Usuario -> Gestor: Usuario explica con mayor \n detalle el caso
+end
+else Termina llamada
+
+Nexopus -> Nexopus: Marcar estado = "Atendido por Oriana y Gestor"
+end
+
+
+' ==========================
+' ESTADO 3: Postprocesado / Revisar
+' ==========================
+
+group Postprocesado
+Gestor --> Nexopus: Activa botón postprocesar
+Nexopus -> Nexopus: Activa proceso de "Postprocesamiento (Transcribir audio)
+Nexopus -> Nexopus: Activa proceso de "Postprocesamiento (Analizar con IA llamada\n Normalizar servicio/categoría/subcategoría)
+Nexopus -> Nexopus: Marcar estado = "Procesado/Revisar"
+end
+
+
+' ==========================
+' ESTADO 4: Revisado / Enviado
+' ==========================
+group 
+Gestor --> Nexopus : Abre Formulario (Incidente/Req/FPQRS)
+Nexopus --> Gestor : Presenta Formulario (Incidente/Req/FPQRS) con campos enriquecidos
+Gestor -> Gestor : Revisa campos de Formulario (Incidente/Req/FPQRS) con campos enriquecidos
+Gestor --> Nexopus : Presiona botón de "Editar"
+Nexopus --> Gestor : Presenta Formulario (Incidente/Req/FPQRS) con campos enriquecidos modo edición.
+Gestor -> Gestor : Actualiza campos de Formulario (Incidente/Req/FPQRS) con campos enriquecidos
+Gestor --> Nexopus : Presiona botón de "Guardar cambios"
+Gestor --> Nexopus : Presiona botón de "Enviar a ITSM"
+Nexopus -> Ivanti: Actualizar ticket ITSM\n(Incidente/Req/FPQRS + campos revisados)
+Nexopus -> Nexopus: Marcar estado = "Revisado/Enviado a ITSM"
+end
+
+deactivate Gestor
+deactivate Nexopus
+
+@enduml
